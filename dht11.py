@@ -43,10 +43,10 @@ class DHT11:
 		# collect data into an array
 		data = self.__collect_input()
 		
-		# parse lengths all data pull up periods
+		# parse lengths of all data pull up periods
 		pull_up_lengths = self.__parse_data_pull_up_lengths(data)
 		
-		# if bit count mismatch (4 byte data + 1 byte checksum)
+		# if bit count mismatch, return error (4 byte data + 1 byte checksum)
 		if len(pull_up_lengths) != 40:
 			return DHT11Result(DHT11Result.ERR_MISSING_DATA, 0, 0)
 		
