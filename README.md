@@ -9,14 +9,15 @@ This simple class can be used for reading temperature and humidity values from D
 
 For example:
 
-    instance = dht11.DHT11(pin = 14)
-    result = instance.read()
+```python
+instance = dht11.DHT11(pin = 14)
+result = instance.read()
 
-	if result.is_valid():
-        print("Temperature: %d C" % result.temperature)
-        print("Humidity: %d %%" % result.humidity)
-    else:
-		print("Error: %d" % result.error_code)
-
+if result.is_valid():
+    print("Temperature: %d C" % result.temperature)
+    print("Humidity: %d %%" % result.humidity)
+else:
+    print("Error: %d" % result.error_code)
+```
 
 For working example, see `dht11_example.py` (you probably need to adjust pin for your configuration)
