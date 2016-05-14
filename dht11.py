@@ -1,5 +1,5 @@
 import time
-import RPi.GPIO as GPIO
+import RPi
 
 class DHT11Result:
 	'DHT11 sensor result returned by DHT11.read() method'
@@ -29,16 +29,16 @@ class DHT11:
 		self.__pin = pin
 		
 	def read(self):
-		GPIO.setup(self.__pin, GPIO.OUT)
+		RPi.GPIO.setup(self.__pin, RPi.GPIO.OUT)
 
 		# send initial high
-		self.__send_and_sleep(GPIO.HIGH, 0.05)
+		self.__send_and_sleep(RPi.GPIO.HIGH, 0.05)
 
 		# pull down to low
-		self.__send_and_sleep(GPIO.LOW, 0.02)
+		self.__send_and_sleep(RPi.GPIO.LOW, 0.02)
 
 		# change to input using pull up
-		GPIO.setup(self.__pin, GPIO.IN, GPIO.PUD_UP)
+		RPi.GPIO.setup(self.__pin, RPi.GPIO.IN, RPi.GPIO.PUD_UP)
 		
 		# collect data into an array
 		data = self.__collect_input()
@@ -65,7 +65,7 @@ class DHT11:
 		return DHT11Result(DHT11Result.ERR_NO_ERROR, the_bytes[2], the_bytes[0])
 
 	def __send_and_sleep(self, output, sleep):
-		GPIO.output(self.__pin, output)
+		RPi.GPIO.output(self.__pin, output)
 		time.sleep(sleep)
 		
 	def __collect_input(self):
@@ -79,7 +79,7 @@ class DHT11:
 		last = -1
 		data = []
 		while True:
-			current = GPIO.input(self.__pin)
+			current = RPi.GPIO.input(self.__pin)
 			data.append(current)
 			if last != current:
 				unchanged_count = 0
@@ -110,7 +110,7 @@ class DHT11:
 			current_length += 1
 				
 			if state == STATE_INIT_PULL_DOWN:
-				if current == GPIO.LOW:
+				if current == RPi.GPIO.LOW:
 					# ok, we got the initial pull down
 					state = STATE_INIT_PULL_UP
 					continue
@@ -118,7 +118,7 @@ class DHT11:
 					continue
 			
 			if state == STATE_INIT_PULL_UP:
-				if current == GPIO.HIGH:
+				if current == RPi.GPIO.HIGH:
 					# ok, we got the initial pull up
 					state = STATE_DATA_FIRST_PULL_DOWN
 					continue
@@ -126,7 +126,7 @@ class DHT11:
 					continue
 			
 			if state == STATE_DATA_FIRST_PULL_DOWN:
-				if current == GPIO.LOW:
+				if current == RPi.GPIO.LOW:
 					# we have the initial pull down, the next will be the data pull up
 					state = STATE_DATA_PULL_UP
 					continue
@@ -134,7 +134,7 @@ class DHT11:
 					continue
 
 			if state == STATE_DATA_PULL_UP:
-				if current == GPIO.HIGH:
+				if current == RPi.GPIO.HIGH:
 					# data pulled up, the length of this pull up will determine whether it is 0 or 1
 					current_length = 0
 					state = STATE_DATA_PULL_DOWN
@@ -143,7 +143,7 @@ class DHT11:
 					continue
 			
 			if state == STATE_DATA_PULL_DOWN:
-				if current == GPIO.LOW:			
+				if current == RPi.GPIO.LOW:			
 					# pulled down, we store the length of the previous pull up period
 					lengths.append(current_length)
 					state = STATE_DATA_PULL_UP				
