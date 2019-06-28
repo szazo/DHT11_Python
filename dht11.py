@@ -63,8 +63,18 @@ class DHT11:
         if the_bytes[4] != checksum:
             return DHT11Result(DHT11Result.ERR_CRC, 0, 0)
 
-        # ok, we have valid data, return it
-        return DHT11Result(DHT11Result.ERR_NO_ERROR, the_bytes[2], the_bytes[0])
+        # ok, we have valid data
+
+        # The meaning of the return sensor values
+        # the_bytes[0]: humidity int
+        # the_bytes[1]: humidity decimal
+        # the_bytes[2]: temperature int
+        # the_bytes[3]: temperature decimal
+
+        temperature = the_bytes[2] + float(the_bytes[3]) / 10
+        humidity = the_bytes[0] + float(the_bytes[1]) / 10
+
+        return DHT11Result(DHT11Result.ERR_NO_ERROR, temperature, humidity)
 
     def __send_and_sleep(self, output, sleep):
         RPi.GPIO.output(self.__pin, output)
