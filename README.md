@@ -2,6 +2,14 @@
 
 This simple class can be used for reading temperature and humidity values from DHT11 sensor on Raspberry Pi.
 
+# Installation
+
+To install, clone the repository, cd into it, and run:
+
+```
+python3 -m pip install .
+```
+
 # Usage
 
 1. Instantiate the `DHT11` class with the pin number as constructor parameter.
