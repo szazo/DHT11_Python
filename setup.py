@@ -12,7 +12,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/szazo/DHT11_Python",
-    packages=setuptools.find_packages(),
+    packages=find_packages(),
     install_requires=["RPi.GPIO"],
     classifiers=[
         "Programming Language :: Python :: 3",
