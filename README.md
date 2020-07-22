@@ -4,10 +4,10 @@ This simple class can be used for reading temperature and humidity values from D
 
 # Installation
 
-To install, clone the repository, cd into it, and run:
+To install, just run following:
 
 ```
-python3 -m pip install .
+pip install dht11
 ```
 
 # Usage
@@ -38,7 +38,6 @@ else:
 ```
 
 For working example, see `dht11_example.py` (you probably need to adjust pin for your configuration)
-
 
 # License
 
