@@ -34,7 +34,7 @@ class DHT11:
         RPi.GPIO.setup(self.__pin, RPi.GPIO.OUT)
 
         # send initial high
-        self.__send_and_sleep(RPi.GPIO.HIGH, 0.05)
+        self.__send_and_sleep(RPi.GPIO.HIGH, 0.6)
 
         # pull down to low
         self.__send_and_sleep(RPi.GPIO.LOW, 0.02)
