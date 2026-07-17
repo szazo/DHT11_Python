@@ -1,4 +1,4 @@
-# DHT11 Python library
+#  amazing DHT11 Python library
 
 This simple class can be used for reading temperature and humidity values from DHT11 sensor on Raspberry Pi.
 
